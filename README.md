@@ -10,6 +10,8 @@ Night light Bot for Anna Li, runs on RPI0W. Requires a bit of setup outside of t
 * meowlightbot.py:            Handles discord bot interfaces
 * mainmeow.py:                Is run by crontab every 1 minute
 * tools/gpio_debug.py:        Useful to debugging gpio
+* tools/gpio_click_id.py:     Tester for IDing different clicks via the buttons
+* tools/keyboard_click_id.py: Tester for IDing different clicks via the keyboard
 
 ## Usage
 
