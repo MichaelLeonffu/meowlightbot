@@ -1,17 +1,7 @@
 # MeowLightBot
 MeowLightBot
 
-Night light Bot for Anna Li, runs on RPI0W. Requires a bit of setup outside of the bot's scope.
-
-## Files
-
-* cogs/...
-* config/config.py:           Makes sure that the programs are configured with their settings
-* meowlightbot.py:            Handles discord bot interfaces
-* mainmeow.py:                Is run by crontab every 1 minute
-* tools/gpio_debug.py:        Useful to debugging gpio
-* tools/gpio_click_id.py:     Tester for IDing different clicks via the buttons
-* tools/keyboard_click_id.py: Tester for IDing different clicks via the keyboard
+Night light Bot for Anna Li, runs on RPI0W. For online features, bot needs to be configured to a wifi.
 
 ## Usage
 
@@ -42,7 +32,7 @@ option to toggle the state of the light at any time.
 
 Note **The `very long press and hold` is reserved to resetting meowlightbot to factory settings.**
 
-### Features
+## Features
 
 * Toggable night light
 * Keeps you lit at night
@@ -56,6 +46,33 @@ Note **The `very long press and hold` is reserved to resetting meowlightbot to f
 * Petting your night light
 * Showing the status of your night light on discord
 * Interactive blinking and pressing game
+
+## Files
+
+* `cogs/...`
+* `config/config.py`:           Makes sure that the programs are configured with their settings
+* `config/preferences.json`:    Keeps track of all [preferences](#preferences) that the user sets.
+* `meowlightbot.py`:            Handles discord bot interfaces
+* `mainmeow.py`:                Is run by crontab every 1 minute
+* `tools/gpio_debug.py`:        Useful to debugging gpio
+* `tools/gpio_click_id.py`:     Tester for IDing different clicks via the buttons
+* `tools/keyboard_click_id.py`: Tester for IDing different clicks via the keyboard
+
+## Preferences
+
+The `preferences.json` file will be generated when meowlightbot first runs. This file will contain
+a set of preferences as configured by the user. As the user sets new preferences they will be updated.
+
+* If a `preferences.json` file exists already then it is used.
+* If a `Very Long Press` is done then the `preferences.json` file is reset to it's default values found in `config.py`
+* `preferences.json` should be generated into the `./config/` directory.
+
+The parameters it can hold are:
+
+	{
+		on_time: int # In minutes of when the LED light turns on
+		off_time: int # In minutes of when the LED light turns off
+	}
 
 ## First time setup
 
@@ -108,11 +125,12 @@ In order to make sure that **nya light** is working a program will run on boot a
 
 It will use the crontab command to check every 1 minute:
 
-	* * * * * ps aux | grep -v grep | grep -q mainmeow.py || python3 -B /home/annali/Developer/meowlightbot/meowlightbot/mainmeow.py &
+	* * * * * ps aux | grep -v grep | grep -q mainmeow.py || cd /home/annali/Developer/meowlightbot/meowlightbot/ && python3 -B mainmeow.py > meow.log 2>&1 &
 
 The file will check if an instance of the program is already running, if it is running then
-it won't boot another instance. I pulled the code from
-[this stackoverflow](https://stackoverflow.com/questions/298760/how-to-make-sure-an-application-keeps-running-on-linux).
+it won't boot another instance. The `cd` command is important because the program runs relative
+to it's own directory. e.g the `preferences.json` file. Finally the `meow.log 2>&1 &` is needed
+to funnel all outputs to a file called `meow.log` and to run the program in the background.
 
 ### Permissions
 
@@ -136,6 +154,8 @@ Gives the user `annali` GPIO group. This should allow that user to run the progr
 * [RPI GPIO python library docs](https://sourceforge.net/p/raspberry-gpio-python/wiki)
 * [Keyboard presses tutorial](https://www.delftstack.com/howto/python/python-detect-keypress/)
 * [Using Timers with threads](https://www.codespeedy.com/call-a-function-after-some-interval-in-python/)
+* [JSON tutorial](https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/)
+* [Keeping program running](https://stackoverflow.com/questions/298760/how-to-make-sure-an-application-keeps-running-on-linux)
 
 # WIP
 
