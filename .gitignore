@@ -190,6 +190,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# data
+# config, preferences, logs
 config.py
-
+*.log
+preferences.json
