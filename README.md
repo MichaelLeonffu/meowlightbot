@@ -116,6 +116,17 @@ Running the command:
 
 Gives the user `annali` GPIO group. This should allow that user to run the program.
 
+## References:
+
+* [MichaelLeonffu/meowlightbot Github](https://github.com/MichaelLeonffu/meowlightbot)
+* [Blinking LED Tutorial](https://raspberrypihq.com/making-a-led-blink-using-the-raspberry-pi-and-python/)
+* [Pin Numbers](https://raspberrypihq.com/wp-content/uploads/2018/01/a-and-b-physical-pin-numbers.png)
+* [Pinouts](https://pinout.xyz)
+* [BC547B Transistor Doc](https://www.farnell.com/datasheets/410427.pdf)
+* [Transistor Tutorial](https://www.dummies.com/article/technology/electronics/circuitry/electronics-components-use-a-transistor-as-a-switch-180034)
+* [RPI GPIO python library tutorial](https://raspi.tv/2013/how-to-use-interrupts-with-python-on-the-raspberry-pi-and-rpi-gpio-part-2)
+* [RPI GPIO python library docs](https://sourceforge.net/p/raspberry-gpio-python/wiki)
+
 
 # WIP
 
