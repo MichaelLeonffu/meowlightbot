@@ -3,6 +3,13 @@ MeowLightBot
 
 Night light Bot for Anna Li, runs on RPI0W. Requires a bit of setup outside of the bot's scope.
 
+## Files
+
+* cogs/...
+* config/config.py:    Makes sure that the programs are configured with their settings
+* meowlightbot.py:     Handles discord bot interfaces
+* mainmeow.py:         Is run by crontab every 1 minute
+* tools/gpio_debug.py: Useful to debugging gpio
 
 ## Usage
 
@@ -83,7 +90,31 @@ Running meowlightbot with a simple command:
 
 `python3 -B meowlightbot.py`
 
+## DevOps setup
 
+In order to keep the program running and making sure permissions are set properly.
+
+### Crontab
+
+In order to make sure that **nya light** is working a program will run on boot and stay running.
+
+It will use the crontab command to check every 1 minute:
+
+	* * * * * ps aux | grep -v grep | grep -q mainmeow.py || python3 -B /home/annali/Developer/meowlightbot/meowlightbot/mainmeow.py &
+
+The file will check if an instance of the program is already running, if it is running then
+it won't boot another instance. I pulled the code from
+[this stackoverflow](https://stackoverflow.com/questions/298760/how-to-make-sure-an-application-keeps-running-on-linux).
+
+### Permissions
+
+In order to use GPIO the user (which runs the program) needs to be given the GPIO group.
+
+Running the command:
+
+	sudo adduser annali gpio
+
+Gives the user `annali` GPIO group. This should allow that user to run the program.
 
 
 # WIP
