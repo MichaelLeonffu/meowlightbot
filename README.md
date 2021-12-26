@@ -6,10 +6,10 @@ Night light Bot for Anna Li, runs on RPI0W. Requires a bit of setup outside of t
 ## Files
 
 * cogs/...
-* config/config.py:    Makes sure that the programs are configured with their settings
-* meowlightbot.py:     Handles discord bot interfaces
-* mainmeow.py:         Is run by crontab every 1 minute
-* tools/gpio_debug.py: Useful to debugging gpio
+* config/config.py:           Makes sure that the programs are configured with their settings
+* meowlightbot.py:            Handles discord bot interfaces
+* mainmeow.py:                Is run by crontab every 1 minute
+* tools/gpio_debug.py:        Useful to debugging gpio
 
 ## Usage
 
@@ -17,17 +17,22 @@ Meow Night Light comes with a button and a single blue LED as interface.
 
 To make this more useful, a basic set of controls should be implemented on the single button:
 
-* Single click
-* Double click
-* Triple click
-* Long press
-* Very long press and hold
+* Single click  -- Toggle LED state
+* Double click  -- Send you a Nya!
+* Triple click  -- Blink super fast or something
+* Long press 2s -- End the current program instance
+* Long hold  9s -- Full reset meowlightbot
 
 The LED can:
 
 * Turn on
 * Turn off
 * Blink X times
+
+By default:
+
+* LED Turns on at 20:00
+* LED Turns off at 04:00
 
 Finally Meow Night Light can be programmed or customized in the discord interface
 i.e setting a on and off time for being used as night light; and setting the `single press`
@@ -37,17 +42,18 @@ Note **The `very long press and hold` is reserved to resetting meowlightbot to f
 
 ### Features
 
-* As a night light
+* Toggable night light
+* Keeps you lit at night
 * Remembers your settings while in "offline" mode
-* Petting your night light
-* Showing the status of your night light on discord
 * Having your own personal discord bot
-* Sending you or your friend a "nya" when triple pressed
-* Interactive blinking and pressing game
+* Sending you or your friend a "nya" on discord
 
 ### Future concepts
 
 * Blinking during certain channel notifications
+* Petting your night light
+* Showing the status of your night light on discord
+* Interactive blinking and pressing game
 
 ## First time setup
 
@@ -126,7 +132,8 @@ Gives the user `annali` GPIO group. This should allow that user to run the progr
 * [Transistor Tutorial](https://www.dummies.com/article/technology/electronics/circuitry/electronics-components-use-a-transistor-as-a-switch-180034)
 * [RPI GPIO python library tutorial](https://raspi.tv/2013/how-to-use-interrupts-with-python-on-the-raspberry-pi-and-rpi-gpio-part-2)
 * [RPI GPIO python library docs](https://sourceforge.net/p/raspberry-gpio-python/wiki)
-
+* [Keyboard presses tutorial](https://www.delftstack.com/howto/python/python-detect-keypress/)
+* [Using Timers with threads](https://www.codespeedy.com/call-a-function-after-some-interval-in-python/)
 
 # WIP
 
