@@ -40,12 +40,13 @@ Note **The `very long press and hold` is reserved to resetting meowlightbot to f
 * Having your own personal discord bot
 * Sending you or your friend a "nya" on discord
 
-### Future concepts
+### Future concepts/features
 
 * Blinking during certain channel notifications
 * Petting your night light
 * Showing the status of your night light on discord
 * Interactive blinking and pressing game
+* Script which automates the installation process.
 
 ## Files
 
@@ -57,6 +58,7 @@ Note **The `very long press and hold` is reserved to resetting meowlightbot to f
 * `tools/gpio_debug.py`:        Useful to debugging gpio
 * `tools/gpio_click_id.py`:     Tester for IDing different clicks via the buttons
 * `tools/keyboard_click_id.py`: Tester for IDing different clicks via the keyboard
+* `tools/toggle_led_demo.py`:   Small program that toggles the LED when button pressed
 
 ## Preferences
 
@@ -109,11 +111,19 @@ For python use [pip freeze](https://pip.pypa.io/en/stable/reference/pip_freeze/)
 
 `pip3 install -r requirements.txt`
 
+Also make sure to install the RPi.GPIO library, it's **not** included in the freeze
+
+	pip install RPi.GPIO
+
+This **only** works on RPI platforms.
+
 ### Running
 
 Running meowlightbot with a simple command:
 
 `python3 -B meowlightbot.py`
+
+But meowlightbot runs best through crontab, to make sure it runs consistently.
 
 ## DevOps setup
 
@@ -127,10 +137,17 @@ It will use the crontab command to check every 1 minute:
 
 	* * * * * ps aux | grep -v grep | grep -q mainmeow.py || cd /home/annali/Developer/meowlightbot/meowlightbot/ && python3 -B mainmeow.py > meow.log 2>&1 &
 
+
 The file will check if an instance of the program is already running, if it is running then
 it won't boot another instance. The `cd` command is important because the program runs relative
 to it's own directory. e.g the `preferences.json` file. Finally the `meow.log 2>&1 &` is needed
 to funnel all outputs to a file called `meow.log` and to run the program in the background.
+
+Here are a couple variations of commands for `@reboot` and `venvs`:
+
+	@reboot ps aux | grep -v grep | grep -q mainmeow.py || cd /home/annali/Developer/meowlightbot/meowlightbot/ && python3 -B mainmeow.py > meow.log 2>&1 &
+	* * * * * ps aux | grep -v grep | grep -q mainmeow.py || cd /home/annali/Developer/meowlightbot/meowlightbot/ && source ../meowlightbot-venv/bin/activate && python3 -B mainmeow.py > meow.log 2>&1 &
+	@reboot ps aux | grep -v grep | grep -q mainmeow.py || cd /home/annali/Developer/meowlightbot/meowlightbot/ && source ../meowlightbot-venv/bin/activate && python3 -B mainmeow.py > meow.log 2>&1 &
 
 ### Permissions
 
